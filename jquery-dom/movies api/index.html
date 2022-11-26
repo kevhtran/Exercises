@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies Rating</title>
+    <link rel="stylesheet" href="tablesort.css">
+</head>
+
+<body>
+    <h1>Movie Ratings</h1>
+    <form id="form">
+        <label for="title">Movie Title</label><br>
+        <input type="text" id="title" minlength="2"><br>
+        <label for="rating">Rating (between 1 and 10):</label><br>
+        <input type="number" id="rating" min="1" max="10">
+        <input type="submit" value="Submit">
+    </form>
+    <table class="table-sortable" id="tableId">
+        <thead>
+            <tr>
+                <th>Movies</th>
+                <th>Ratings</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody id="tablebodyId">
+        </tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
