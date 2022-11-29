@@ -3,7 +3,7 @@ const inputMovie = document.querySelector('#title')
 const inputRating = document.querySelector('#rating')
 const table = document.querySelector('#tableId')
 const tablebodyId = document.querySelector('#tablebodyId')
-
+// **html table sort does not sort numbers correctly, the numbers are turned into string somewhere
 /**
  * code from youtube video
  * Sorts a HTML table.
@@ -62,7 +62,7 @@ $("#form").submit(function (event) {
     let td1 = document.createElement('td');
     let td2 = document.createElement('td');
     td1.innerHTML = inputMovie.value;
-    td2.innerHTML = inputRating.value;
+    td2.innerHTML = inputRating.valueAsNumber;
     row.appendChild(td1);
     row.appendChild(td2);
     row.appendChild(removeBtn);
