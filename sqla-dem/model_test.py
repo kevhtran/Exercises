@@ -1,7 +1,7 @@
 from unittest import TestCase
-
+from datetime import datetime
 from app import app
-from models import db, User
+from models import db, User, Post
 
 # Use test database and don't clutter tests with SQL
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly_test'
@@ -14,9 +14,15 @@ class UserModelTestCase(TestCase):
     """Tests for model for User."""
 
     def setUp(self):
-        """Clean up any existing pets."""
+        """Clean up any existing data."""
 
         User.query.delete()
+        DEFAULT_IMAGE_URL = 'https://p7.hiclipart.com/preview/596/856/933/pokemon-yellow-pokemon-red-and-blue-pokemon-mystery-dungeon-explorers-of-darkness-time-pikachu-ash-ketchum-pikachu-png.jpg'
+        user = User(first_name="Patrick", last_name="Bateman", image_url=DEFAULT_IMAGE_URL)
+        db.session.add(user)
+        db.session.commit()
+
+        self.user = user
 
     def tearDown(self):
         """Clean up any fouled transaction."""
@@ -35,4 +41,9 @@ class UserModelTestCase(TestCase):
         DEFAULT_IMAGE_URL = 'https://p7.hiclipart.com/preview/596/856/933/pokemon-yellow-pokemon-red-and-blue-pokemon-mystery-dungeon-explorers-of-darkness-time-pikachu-ash-ketchum-pikachu-png.jpg'
         user = User(first_name="Patrick", last_name="Bateman", image_url=DEFAULT_IMAGE_URL)
         self.assertEquals(user.image_url, "https://p7.hiclipart.com/preview/596/856/933/pokemon-yellow-pokemon-red-and-blue-pokemon-mystery-dungeon-explorers-of-darkness-time-pikachu-ash-ketchum-pikachu-png.jpg")   
-    
+    def test_post(self):
+        post = Post(title='Oh Honey', content='Miley Thee Cyrus', user_id=self.user.id, created_at=datetime.now)
+        self.assertEquals(post.title, 'Oh Honey')
+        self.assertEquals(post.content, 'Miley Thee Cyrus')
+        self.assertEquals(post.user_id, self.user.id)
+        self.assertEquals(post.created_at, datetime.now)
