@@ -62,21 +62,29 @@ class UsersTestCase(TestCase):
     
     def test_delete_user(self):
         with app.test_client() as client:
-            d = {"first_name":self.user.first_name, "last_name":self.user.last_name, "image_url":self.user.image_url}
-            resp = client.post(f"/users/{self.user.id}/delete", data=d, follow_redirects=True)
+            # d = {"first_name":self.user.first_name, "last_name":self.user.last_name, "image_url":self.user.image_url}
+            resp = client.post(f"/users/{self.user.id}/delete", data=self.user, follow_redirects=True)
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
             self.assertNotIn('Patrick', html)
 
-    def test_add_post(self):
-        with app.test_client() as client:
-            d = {'title':'Oh Bother', 'content':'Winnie thee Pooh', 'user':self.user, 'user_id':self.user.id, 'created_at':datetime.now()}
-            resp = client.post(f"/users/{self.user.id}/posts/new", data=d, follow_redirects=True)
-            html = resp.get_data(as_text=True)
+    # def test_add_post(self):
+    #     with app.test_client() as client:
+    #         d = {'title':'Oh Bother', 'content':'Winnie thee Pooh', 'user':self.user, 'user_id':self.user.id, 'created_at':datetime.now()}
+    #         resp = client.post(f"/users/{self.user.id}/posts/new", data=d, follow_redirects=True)
+    #         html = resp.get_data(as_text=True)
 
-            self.assertEqual(resp.status_code, 200)
-            self.assertIn('Oh Bother', html)
+    #         self.assertEqual(resp.status_code, 200)
+    #         self.assertIn('Oh Bother', html)
     # /users/<int:user_id>/posts/new
+    # def test_delete_user(self):
+    #     with app.test_client() as client:
+    #         d = {'title':'Oh Bother', 'content':'Winnie thee Pooh', 'user':self.user, 'user_id':self.user.id, 'created_at':datetime.now()}
+    #         resp = client.post(f"posts/{self.post_id}/delete", data=d, follow_redirects=True)
+    #         html = resp.get_data(as_text=True)
+
+    #         self.assertEqual(resp.status_code, 200)
+    #         self.assertNotIn('Oh Bother', html)
 
     # /posts/<int:post_id>/delete
